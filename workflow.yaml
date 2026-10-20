@@ -1,0 +1,30 @@
+name: Azure Pipeline Migration Example
+
+on:
+  workflow_dispatch:
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install UV
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.10.7"
+
+      - name: Install Dependencies
+        run: uv sync
+
+      - name: Validate Environment
+        run: |
+          python --version
+          uv --version
